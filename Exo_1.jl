@@ -47,6 +47,4 @@ bar(["WIN","LOSE"], [wins, losses],
     ylabel = "Count",
     title = "Craps outcomes (N = $N)")
 
-# Save the figure (optional)
-savefig("/Users/xaviergagnon/Documents/Automne 2025/Finance Computationelle/TP1/Figs/craps_histogram.png")
-println("Saved chart to craps_histogram.png")
+
