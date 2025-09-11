@@ -24,12 +24,15 @@ end
 # Sample n+1 i.i.d. Exp(1), normalize to sum to 1 (Dirichlet(1,…,1)).
 # The *internal* interpoint distances are exactly the middle n-1 spacings.
 function conditional_poisson_interspacings(n::Integer)
-    y = rand(Exponential(1.0), n + 1)  # n+1 Exp(1)
-    y ./= sum(y)                        # Dirichlet(1,…,1) spacings on [0,1]
+    y = rand(Exponential(1.0), n + 1)  # n+1 Exp(1). Thoses are the spacings of a Poisson(1) process on [0,∞)
+
+    y ./= sum(y)                        # Dirichlet(1,…,1) spacings on [0,1]. After doing this, the number of spacings doesn't matter  
+                                        # because they are Dirichlet....
+
     return y[2:n]                       # internal spacings only
 end
 
-# ---------- 3) (Optional) Naive rejection sampler ----------
+# ---------- 3) Naive rejection sampler ----------
 # Simulate Exp(λ) inter-arrivals; accept only if exactly n events fall in [0,1].
 # NOTE: Exponential in Distributions.jl uses *scale* (mean), so pass 1/λ.
 function poisson_interspacings_rejection(n::Integer; λ::Real = n)
